@@ -1,0 +1,223 @@
+@import "tailwindcss";
+
+/* ── Custom fonts ── */
+:root {
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-script: 'Dancing Script', cursive;
+  --font-body: 'Inter', system-ui, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+  background: #0a0812;
+  color: #f0eaf8;
+  overflow-x: hidden;
+}
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: #0a0812; }
+::-webkit-scrollbar-thumb { background: #7c3aed55; border-radius: 2px; }
+
+/* ── Typography helpers ── */
+.font-display  { font-family: var(--font-display); }
+.font-script   { font-family: var(--font-script); }
+.font-body     { font-family: var(--font-body); }
+
+/* ── Glassmorphism ── */
+.glass {
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.glass-strong {
+  background: rgba(255, 255, 255, 0.07);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+/* ── Star field ── */
+.star {
+  position: absolute;
+  border-radius: 50%;
+  background: white;
+  animation: twinkle var(--duration, 3s) ease-in-out infinite var(--delay, 0s);
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: var(--min-op, 0.2); transform: scale(1); }
+  50%       { opacity: var(--max-op, 0.9); transform: scale(1.3); }
+}
+
+/* ── Floating petals ── */
+.petal {
+  position: fixed;
+  pointer-events: none;
+  animation: floatPetal var(--dur, 8s) ease-in-out infinite var(--delay, 0s);
+  opacity: 0.15;
+  font-size: var(--size, 14px);
+  user-select: none;
+}
+
+@keyframes floatPetal {
+  0%   { transform: translateY(100vh) translateX(0) rotate(0deg);   opacity: 0; }
+  10%  { opacity: 0.15; }
+  90%  { opacity: 0.10; }
+  100% { transform: translateY(-10vh) translateX(var(--drift, 40px)) rotate(360deg); opacity: 0; }
+}
+
+/* ── Cursor glow ── */
+.cursor-glow {
+  position: fixed;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(167,139,250,0.6), transparent 70%);
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  transition: transform 0.1s ease;
+  z-index: 9999;
+  mix-blend-mode: screen;
+}
+
+/* ── Gradient text ── */
+.gradient-text {
+  background: linear-gradient(135deg, #c084fc, #f0abfc, #fda4af);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.gradient-text-gold {
+  background: linear-gradient(135deg, #fde68a, #fbbf24, #f59e0b);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── Letter line reveal ── */
+.letter-line {
+  overflow: hidden;
+}
+
+/* ── Game star ── */
+.game-star {
+  position: absolute;
+  cursor: pointer;
+  user-select: none;
+  animation: gamePulse 2s ease-in-out infinite;
+  filter: drop-shadow(0 0 8px #fbbf24);
+  transition: transform 0.1s;
+}
+.game-star:hover { transform: scale(1.3) !important; }
+@keyframes gamePulse {
+  0%, 100% { filter: drop-shadow(0 0 6px #fbbf24); }
+  50%       { filter: drop-shadow(0 0 16px #fde68a); }
+}
+
+/* ── Confetti canvas ── */
+#confetti-canvas {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9998;
+}
+
+/* ── Section transitions ── */
+.section-fade {
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+/* ── Music player ── */
+.music-btn {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  z-index: 1000;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.music-btn:hover { transform: scale(1.1); }
+
+/* ── Page content width ── */
+.content-width {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+/* ── Range input custom ── */
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  background: rgba(167,139,250,0.2);
+  height: 4px;
+  border-radius: 2px;
+  outline: none;
+}
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #a78bfa;
+  cursor: pointer;
+}
+input[type="range"]::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #a78bfa;
+  cursor: pointer;
+  border: none;
+}
+
+/* ── Scroll indicator ── */
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(8px); }
+}
+.bounce { animation: bounce 1.5s ease-in-out infinite; }
+
+/* ── Gift box ── */
+@keyframes giftWiggle {
+  0%, 100% { transform: rotate(-3deg); }
+  50%       { transform: rotate(3deg); }
+}
+.gift-wiggle { animation: giftWiggle 0.8s ease-in-out infinite; }
+
+/* ── Name letter pop ── */
+@keyframes letterPop {
+  0%   { opacity: 0; transform: translateY(20px) scale(0.8); }
+  60%  { transform: translateY(-4px) scale(1.05); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+.letter-pop {
+  animation: letterPop 0.4s ease forwards;
+}
+
+/* ── Progress bar ── */
+.progress-bar {
+  height: 2px;
+  background: linear-gradient(90deg, #a78bfa, #f0abfc, #fda4af);
+  transition: width 0.3s ease;
+}
